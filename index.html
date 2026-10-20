@@ -10,6 +10,44 @@
     />
     <meta name="theme-color" content="#15110c" />
 
+    <!-- Meta Pixel Code (Hal's — same pixel as hals.net) -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "1146270633761669");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        alt=""
+        src="https://www.facebook.com/tr?id=1146270633761669&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -859,6 +897,30 @@
         el.style.transitionDelay = (i % 4) * 0.06 + "s";
         io.observe(el);
       });
+
+      // ── Meta Pixel: inquiry-intent signal ───────────────────────────────
+      // The Tripleseat form is a cross-origin iframe, so its actual submission
+      // can't be detected from this page. We fire a custom event when a visitor
+      // opens the request form (clicks a "Request a Date" CTA or the open-in-
+      // new-tab link) as a top-of-funnel signal — deduped to once per visit.
+      //
+      // For a TRUE lead conversion ("Lead" standard event on submit), add the
+      // pixel + a Lead event inside Tripleseat: Settings → Lead Forms → the
+      // form's tracking / confirmation settings (or a thank-you redirect).
+      (function () {
+        var fired = false;
+        document.addEventListener("click", function (ev) {
+          var a = ev.target.closest && ev.target.closest("a");
+          if (!a) return;
+          var href = a.getAttribute("href") || "";
+          var isCta =
+            href === "#request" || href.indexOf("tripleseat.com") !== -1;
+          if (isCta && !fired && typeof fbq === "function") {
+            fired = true;
+            fbq("trackCustom", "RequestFormOpened", { location: "Nashville" });
+          }
+        });
+      })();
     </script>
   </body>
 </html>

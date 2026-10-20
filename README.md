@@ -30,6 +30,21 @@ To switch to Tripleseat's official auto-resizing embed, grab the snippet from
 `public_key`) and replace the iframe in `index.html` — there's a comment marking
 the exact spot.
 
+## Tracking
+
+The **Meta (Facebook) Pixel** is installed in `<head>`, using the **same pixel
+ID as hals.net** (`1146270633761669`) so this page reports into the same Meta
+account. It fires `PageView` on load (matching the main site) and a custom
+`RequestFormOpened` event when a visitor opens the booking form.
+
+hals.net runs no other trackers (no Google Analytics, GTM, Ads, or other
+pixels), so none are added here.
+
+**Note on lead conversions:** the Tripleseat form is a cross-origin iframe, so
+its submission can't be detected from this page. To count true submissions as a
+Meta `Lead` event, add the pixel + Lead event inside Tripleseat (Settings → Lead
+Forms → the form's tracking / confirmation settings, or a thank-you redirect).
+
 ## Still to confirm (placeholders in `index.html`)
 
 - Street address, phone number, and events email (in the footer)
