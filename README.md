@@ -47,5 +47,8 @@ Forms → the form's tracking / confirmation settings, or a thank-you redirect).
 
 ## Still to confirm (placeholders in `index.html`)
 
-- Street address, phone number, and events email (in the footer)
-- Private-room capacities (currently 14 / 40 / 180)
+- "The Spaces" section — room names, descriptions, and capacities (currently
+  placeholder: 14 / 40 / 180); correct info to come from the venue.
+
+Footer contact details are live: 407 Korean Vets Blvd, Nashville, TN 37203 ·
+(615) 560-7733 · NashvilleEvents@hals.net
