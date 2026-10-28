@@ -341,9 +341,14 @@
         margin-top: 56px;
         grid-template-columns: 1fr;
       }
-      @media (min-width: 760px) {
+      @media (min-width: 640px) {
         .spaces-grid {
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1040px) {
+        .spaces-grid {
+          grid-template-columns: repeat(4, 1fr);
         }
       }
       .space-card {
@@ -733,31 +738,33 @@
           <p class="eyebrow">The Spaces</p>
           <h2 class="serif">Rooms for every kind of night</h2>
           <p>
-            Three ways to host under one roof in Nashville — each with its own
-            character, each with the full Hal's kitchen behind it.
+            Four private spaces under one roof in Nashville — from an intimate
+            table for six to a full floor for sixty-four, each with the full
+            Hal's kitchen behind it.
           </p>
         </div>
 
         <!--
-          Each card opens a photo in a lightbox (click, or Enter/Space when
-          focused). The data-img photos are PLACEHOLDERS — swap each for a
-          dedicated photo of that actual room when available. Capacities are
-          placeholders too; confirm with the venue.
+          Each card opens the room's photo in a lightbox (click, or Enter/Space
+          when focused). data-img points to the room photo in images/ — add
+          these four files: conservatory.jpg, library.jpg, study.jpg,
+          second-floor.jpg. Until a file exists, the lightbox falls back to a
+          house photo (handled in the lightbox script).
         -->
         <div class="spaces-grid">
           <div
             class="space-card reveal"
             role="button"
             tabindex="0"
-            data-img="images/private-dining-room.jpg"
-            data-caption="The Chef's Table"
+            data-img="images/conservatory.jpg"
+            data-caption="Conservatory"
           >
             <div class="num serif">01</div>
-            <h3>The Chef's Table</h3>
-            <div class="cap">Seats up to 14</div>
+            <h3>Conservatory</h3>
+            <div class="cap">Seats 6–14</div>
             <p>
-              An intimate, semi-private table for milestone dinners and small
-              celebrations, paced by the kitchen.
+              A bright, flexible room just off the main floor — right-sized for
+              intimate dinners and small celebrations.
             </p>
             <span class="view">View the space →</span>
           </div>
@@ -765,15 +772,15 @@
             class="space-card reveal"
             role="button"
             tabindex="0"
-            data-img="images/private-event.jpg"
-            data-caption="The Private Room"
+            data-img="images/library.jpg"
+            data-caption="Library"
           >
             <div class="num serif">02</div>
-            <h3>The Private Room</h3>
-            <div class="cap">Seats up to 40</div>
+            <h3>Library</h3>
+            <div class="cap">Seats 8–16</div>
             <p>
-              A room of your own with its own service and a dedicated host — for
-              rehearsal dinners, corporate evenings, and parties worth marking.
+              A warm, wood-paneled room with its own bar — a classic setting for
+              milestone dinners and gatherings.
             </p>
             <span class="view">View the space →</span>
           </div>
@@ -781,15 +788,31 @@
             class="space-card reveal"
             role="button"
             tabindex="0"
-            data-img="images/table-spread.jpg"
-            data-caption="Full Buyout"
+            data-img="images/study.jpg"
+            data-caption="Study"
           >
             <div class="num serif">03</div>
-            <h3>Full Buyout</h3>
-            <div class="cap">Up to 180 guests</div>
+            <h3>Study</h3>
+            <div class="cap">Seats 12–24</div>
             <p>
-              The whole steakhouse, the whole team — a tailored menu and flow for
-              weddings, launches, and big occasions.
+              A refined private room wired for presentations — ideal for business
+              dinners and mid-size parties.
+            </p>
+            <span class="view">View the space →</span>
+          </div>
+          <div
+            class="space-card reveal"
+            role="button"
+            tabindex="0"
+            data-img="images/second-floor.jpg"
+            data-caption="2nd Floor"
+          >
+            <div class="num serif">04</div>
+            <h3>2nd Floor</h3>
+            <div class="cap">Seats 24–64</div>
+            <p>
+              Our largest private space — a full floor for receptions, rehearsal
+              dinners, and grand celebrations.
             </p>
             <span class="view">View the space →</span>
           </div>
@@ -1054,7 +1077,17 @@
         var lbClose = document.getElementById("lbClose");
         var lastFocus = null;
 
+        // If a room photo isn't in images/ yet, fall back to a house photo
+        // so the lightbox never shows a broken image.
+        lbImg.addEventListener("error", function () {
+          if (lbImg.getAttribute("data-fellback") !== "1") {
+            lbImg.setAttribute("data-fellback", "1");
+            lbImg.src = "images/private-dining-room.jpg";
+          }
+        });
+
         function open(src, cap) {
+          lbImg.removeAttribute("data-fellback");
           lbImg.src = src;
           lbImg.alt = cap ? cap + " at Hal's The Steakhouse, Nashville" : "";
           lbCap.textContent = cap || "";

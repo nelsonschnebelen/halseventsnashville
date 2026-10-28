@@ -45,10 +45,17 @@ its submission can't be detected from this page. To count true submissions as a
 Meta `Lead` event, add the pixel + Lead event inside Tripleseat (Settings → Lead
 Forms → the form's tracking / confirmation settings, or a thank-you redirect).
 
-## Still to confirm (placeholders in `index.html`)
+## Still to add — the four room photos
 
-- "The Spaces" section — room names, descriptions, and capacities (currently
-  placeholder: 14 / 40 / 180); correct info to come from the venue.
+"The Spaces" lists the four real private rooms with capacities — Conservatory
+(6–14), Library (8–16), Study (12–24), 2nd Floor (24–64). Each card opens its
+photo in a lightbox. Add these four files to `images/` and they appear
+automatically; until a file exists, the lightbox falls back to a house photo:
 
-Footer contact details are live: 407 Korean Vets Blvd, Nashville, TN 37203 ·
+- `images/conservatory.jpg`
+- `images/library.jpg`
+- `images/study.jpg`
+- `images/second-floor.jpg`
+
+Footer contact details are live: 407 Korean Veterans Blvd, Nashville, TN 37203 ·
 (615) 560-7733 · NashvilleEvents@hals.net
